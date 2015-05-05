@@ -1,0 +1,30 @@
+span.header {
+	font-family: "Lobster", Georgia, serif;
+	font-size: 2rem;
+}
+
+span.title {
+	font-family: "Lobster", Georgia, serif;
+	font-size: 4rem;
+}
+
+h1 {
+	text-align: center;
+}
+
+h4 {
+	text-decoration: bold;
+}
+
+.form-group.required .control-label:after { 
+   content:"*";
+   color:red;
+}
+
+.content-left {
+	float:left; 
+	width:20%;
+	margin-left:50px;
+	padding: 25px;
+	border-right: 1px solid;
+}
