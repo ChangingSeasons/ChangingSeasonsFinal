@@ -115,6 +115,9 @@
 								%>
 								<button type="button" class="btn btn-info"
 									onclick="location.href = 'editProduct.jsp?editProductID=<%=product.getProductID()%>'">Edit</button>
+							
+								<button type="button" class="btn btn-info"
+									onclick="location.href = 'DeleteProductServlet?deleteProductID=<%=product.getProductID()%>'">Delete</button>
 								<%
 									} else {
 								%>
@@ -142,7 +145,8 @@
 							<script type="text/javascript">
 							$(document).ready(
 									function() { // When the HTML DOM is ready loading, then execute the following function...
-										var oldRank = <%=rank %>;
+										var oldRank = <%=RankDAO.viewRank(product.getProductID(),
+												user.getID()) %>;
 										var productID = <%=product.getProductID() %>;
 										var userID = <%=user.getID()   %>;
 										var review = <%=review.equals("") ? "\"\"" : "'"+review+"'"%>

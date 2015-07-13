@@ -140,12 +140,15 @@ public class AuthDAO {
 		try{
 			if(isUsernameAvailable(username)==true){
 				Connect();
-				String q0 = "Select id from User";
+				//SELECT id FROM User WHERE status <> 0 ORDER BY id DESC LIMIT 1
+				//String q0 = "Select id from User ";
+				
+				String q0 = "SELECT id FROM User ORDER BY id DESC LIMIT 1";
 				Statement st = cn.createStatement();
 				ResultSet rs = st.executeQuery(q0);
 
 				if(rs.next()){
-					rs.last(); // Get ID of last User
+					//rs.last(); // Get ID of last User
 					ID = rs.getInt("id");
 					ID++;
 				}

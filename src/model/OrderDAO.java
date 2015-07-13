@@ -46,12 +46,15 @@ public class OrderDAO {
 		Connect();
 		int ID = -1;
 		try{
-			String q0 = "SELECT orderID FROM Orders";
+			//String q0 = "SELECT orderID FROM Orders";
+			
+			String q0 = "SELECT orderID FROM Orders ORDER BY orderID DESC LIMIT 1";
+			
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
 			if(rs.next()){
-				rs.last(); // Get ID of last Order
+				//rs.last(); // Get ID of last Order
 				ID = rs.getInt("orderID");
 				ID++;
 			}

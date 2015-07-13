@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.User;
 import static model.AuthDAO.*;
 import static model.EmailDAO.sendMail;
 /**
@@ -187,10 +188,11 @@ public class VendorServlet extends HttpServlet {
 				}
 				
 				if(status == true){
-					sendMail(email, "Welcome to Changing Seasons", "Thank you for registering with Us. We wish you a pleasant experience!","register");
+					User u = getUserbyId(userId);
 					msg = "Account Created Successfully";
 					request.setAttribute("msg", msg);
 					url = "/base_login.jsp";
+					sendMail(u.getEmail(), "Welcome to Changing Seasons", "Thank you for registering with Us. We wish you a pleasant experience!","register");
 				}
 				else{
 					msg = "UserName Insert Failed";

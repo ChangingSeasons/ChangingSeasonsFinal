@@ -78,18 +78,7 @@ public class EditProductServlet extends HttpServlet {
 			msg = msg + "Please fill-in Product Shipping-Cost";
 			request.setAttribute("msg", msg);
 		}
-		/**
-		if(color.length()==0){
-			url = "/addProducts.jsp";
-			msg = msg + "Please fill-in Product Color";
-			request.setAttribute("msg", msg);
-		}
-		if(size.length()==0){
-			url = "/addProducts.jsp";
-			msg = msg + "Please fill-in Product Size";
-			request.setAttribute("msg", msg);
-		}
-		**/
+
 		if(imageName.length()==0){
 			url = "/addProducts.jsp";
 			msg = msg + "Please fill-in Product Image name";

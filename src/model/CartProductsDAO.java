@@ -12,12 +12,15 @@ public class CartProductsDAO {
 		int ID = -1;
 		try{
 			Connect();
-			String q0 = "SELECT cartProductID FROM CartProducts";
+			//String q0 = "SELECT cartProductID FROM CartProducts";
+
+			String q0 = "SELECT cartProductID FROM CartProducts ORDER BY cartProductID DESC LIMIT 1";
+
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
 			if(rs.next()){
-				rs.last(); // Get ID of last Cart
+				//rs.last(); // Get ID of last Cart
 				ID = rs.getInt("cartProductID");
 				ID++;
 			}
@@ -56,19 +59,21 @@ public class CartProductsDAO {
 
 		try{
 			boolean isDuplicate = false;
-			
+
 			Connect();
 			String q0 = "SELECT productID, quantity, size, color FROM CartProducts WHERE cartID="+cartID+
 					" AND productID="+productID;
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
-			if(rs.next()){
+			//if(rs.next()){
+			while(rs.next()){
 				int quan = rs.getInt("quantity");
 				String tempsize = rs.getString("size");
 				String tempcolor = rs.getString("color");
 
 				if(tempsize.equals(size) && tempcolor.equals(color)){
+					System.out.println("Line 76: size: color:"+tempsize+" : "+tempcolor);
 					isDuplicate = true;
 					String q1 = "UPDATE CartProducts SET quantity="+(quan+quantity)+" WHERE size='"+size+
 							"' AND color='"+color+"' AND productID="+productID+" AND cartID="+cartID;
@@ -76,12 +81,15 @@ public class CartProductsDAO {
 					st2.executeUpdate(q1);
 					st2.close();
 
-					st.close();
-					rs.close();
+					
 				}
 			}
+			
+			st.close();
+			rs.close();
 
 			if (!isDuplicate) {
+				System.out.println("Line 90: size: color:"+size+" : "+color);
 				String q = "INSERT into CartProducts (cartProductID, cartID, productID, quantity, size, color) values (?, ?, ?, ?, ?, ?)";
 				Connect();
 				PreparedStatement ps = cn.prepareStatement(q);
@@ -121,7 +129,7 @@ public class CartProductsDAO {
 			System.err.println(se.getMessage());
 			se.printStackTrace();
 		}
-		
+
 		DB_close();
 		return true;
 	}

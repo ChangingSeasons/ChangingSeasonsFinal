@@ -89,12 +89,13 @@ public class ShoppingCartDAO {
 		Connect();
 		int ID = -1;
 		try{
-			String q0 = "SELECT cartID FROM ShoppingCart";
+			String q0 = "SELECT cartID FROM ShoppingCart ORDER BY cartID DESC LIMIT 1";
+			//SELECT productID FROM Product ORDER BY productID DESC LIMIT 1";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
 			if(rs.next()){
-				rs.last(); // Get ID of last Cart
+				//rs.last(); // Get ID of last Cart
 				ID = rs.getInt("cartID");
 				ID++;
 			}
@@ -204,20 +205,22 @@ public class ShoppingCartDAO {
 		int count = 0;
 
 		int cartID = getCartID(userID);
-
+		
 		try{
 			Connect();
-			String q0 = "SELECT productID FROM cartProducts WHERE cartID="+cartID;
+			String q0 = "SELECT * FROM cartProducts WHERE cartID="+cartID;
+			// ORDER BY productID DESC LIMIT 1
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery(q0);
-
+			ResultSet rs = st.executeQuery(q0);	
+				
 			if(rs.next()){
-				rs.last();
-				count = rs.getRow(); // Total Number of products in Cart
+				count++;
+				while(rs.next())
+					count++;
 			}
 			else
-				count = 0; // Cart is empty
-
+				count = 0;
+			
 			rs.close();
 			st.close();
 

@@ -15,12 +15,15 @@ public class OrderProductsDAO {
 		Connect();
 		int ID = -1;
 		try{
-			String q0 = "SELECT OrderProductID FROM OrderProducts";
+			//String q0 = "SELECT OrderProductID FROM OrderProducts";
+			
+			String q0 = "SELECT OrderProductID FROM OrderProducts ORDER BY OrderProductID DESC LIMIT 1";
+			
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
 			if(rs.next()){
-				rs.last(); // Get ID for last row
+				//rs.last(); // Get ID for last row
 				ID = rs.getInt("orderProductID");
 				ID++;
 			}

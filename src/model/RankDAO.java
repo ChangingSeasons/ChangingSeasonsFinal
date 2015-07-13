@@ -36,7 +36,7 @@ public class RankDAO {
 			String q = "UPDATE productRank SET review='"+review+"' WHERE productID="+productID+" AND customerID="+customerID;
 			Statement st = cn.createStatement();
 			st.executeUpdate(q);
-			
+
 			st.close();
 		}catch(SQLException e){
 			System.err.println(e.getMessage());
@@ -72,9 +72,10 @@ public class RankDAO {
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q0);
 
-			while(rs.next())
+			if(rs.next())
 				rank = rs.getInt("rank");
-
+			else
+				rank = -1;
 			rs.close();
 			st.close();
 		}catch(SQLException se){

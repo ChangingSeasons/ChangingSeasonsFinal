@@ -9,6 +9,8 @@
 
 <div class="container">
 	<%
+	
+	NumberFormat formatter = NumberFormat.getCurrencyInstance();
 	ShoppingCart cart = ShoppingCartDAO.cartDetails(user.getID());
 	List<Product> cartProducts = cart.getCartProducts();
 	%>
@@ -66,7 +68,7 @@
 							</select>
 					 -->
 					</td>
-					<td>$ <%=totalProductPrice%></td>
+					<td> <%=formatter.format(totalProductPrice) %></td>
 					<td><a
 						href="RemoveFromCartServlet?cartProductID=<%=p.getCartProductID()%>&userID=<%=user.getID() %>">
 							<button type="submit" id="submit" name="submit"
@@ -79,7 +81,6 @@
 				} else out.write("No Cart Product found");
 			
 			double totalAfterTax = cartTotalPrice*1.08f;
-			NumberFormat formatter = NumberFormat.getCurrencyInstance();
 			String moneyString = formatter.format(totalAfterTax);
 			%>
 			</tbody>
@@ -89,7 +90,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<h4>
-						Sub Total: $<%=cartTotalPrice %><br/> Sales Tax: 8.00%<br/>
+						Sub Total: <%=formatter.format(cartTotalPrice) %><br/> Sales Tax: 8.00%<br/>
 						<hr/>
 						Order Total: <%=moneyString %>
 					</h4>

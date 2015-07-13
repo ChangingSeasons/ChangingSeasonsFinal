@@ -36,10 +36,10 @@ public class UpdateRankServlet extends HttpServlet {
 		int productID = Integer.parseInt(request.getParameter("productID"));
 		int customerID = Integer.parseInt(request.getParameter("customerID"));
 		if(oldRank == -1) {
-			//System.out.println("Rank has not been set, inserting oldRank: "+oldRank+" and newRank:"+rank);
+			System.out.println("Rank has not been set, inserting oldRank: "+oldRank+" and newRank:"+rank);
 			RankDAO.addRank(productID, customerID, rank);
 		} else {
-			//System.out.println("Rank has been set, updating oldRank: "+oldRank+" and newRank:"+rank);
+			System.out.println("Rank has been set, updating oldRank: "+oldRank+" and newRank:"+rank);
 			RankDAO.editRank(productID, customerID, rank);
 		}
 		

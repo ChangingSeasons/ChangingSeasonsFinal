@@ -38,53 +38,13 @@
 						});
 			});
 </script>
-<div class="container" style="width: 100%">
-
 	<div class="col-md-4"
-		style="float: left; width: 20%; height: 1000px; margin-left: 10px; margin-right: 10px;">
+		style="float: left; width: 20%; height: 100%; margin-left: 10px; margin-right: 10px;">
 		
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<h3>Filter by </h3>
 				<br />
-				<!-- 
-				<h4>Size</h4>
-				<input type="checkbox" class="size" name="size" value="XS">
-				XS <br /> <input type="checkbox" class="size" name="size" value="S">
-				S <br /> <input type="checkbox" class="size" name="size" value="M">
-				M <br /> <input type="checkbox" class="size" name="size" value="L">
-				L <br /> <input type="checkbox" class="size" name="size" value="XL">
-				XL <br /> <input type="checkbox" class="size" name="size"
-					value="XXL"> XXL <br /> <br />
-
-				<h4>Color</h4>
-				<input type="checkbox" class="color" name="color" value="Black">
-				Black <br /> <input type="checkbox" class="color" name="color"
-					value="White"> White <br /> <input type="checkbox"
-					class="color" name="color" value="Red"> Red <br /> <input
-					type="checkbox" class="color" name="color" value="Brown">
-				Brown <br /> <input type="checkbox" class="color" name="color"
-					value="Grey"> Grey <br /> <input type="checkbox"
-					class="color" name="color" value="Blue"> Blue <br /> <br />
-					
-				 -->
-				 
-				 <!--   <input type="checkbox" class="brand" name="color"
-					value="CalvinKlein"> Calvin Klein<br /> <input
-					type="checkbox" class="brand" name="color" value="Columbia">
-				Columbia <br /> <input type="checkbox" class="brand" name="color"
-					value="Diesel"> Diesel <br /> <input type="checkbox"
-					class="brand" name="color" value="DC"> DC <br /> <input
-					type="checkbox" class="brand" name="color" value="HugoBoss">
-				Hugo Boss <br /> <input type="checkbox" class="brand" name="color"
-					value="KennethCole"> Kenneth Cole <br /> <input
-					type="checkbox" class="brand" name="color" value="Nordstrom">
-				Nordstrom <br /> <input type="checkbox" class="brand" name="color"
-					value="NorthFace"> The North Face <br /> <input
-					type="checkbox" class="brand" name="color" value="TommyHilfiger">
-				Tommy Hilfiger <br /> <br />
-				
-				-->
 				 
 				 <h4>Brand</h4>
 				 <%
@@ -120,6 +80,9 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="col-md-10" style=" width: 75%; height: 100%; ">
+		
 	<%@page import="model.Product"%>
 	<%@page import="model.ProductDAO.*"%>
 
@@ -130,19 +93,27 @@
 		} else 
 		 products = (List<Product>) session.getAttribute("products");
 %>
-	<div class="row">
 		<%
 		if( session.getAttribute("user") != null) {
 			User listUser = (User) session.getAttribute("user");
 		if (products != null) {
+			String clearfix = "";
+			int count=0;
 			for (Product p : products) {
 				int id = p.getProductID();
+				//if ((count % 2)==0)  clearfix = "<div class=\"clearfix visible-sm-block\">";
+				//if ((count % 3)==0)  clearfix = "<div class=\"clearfix visible-md-block\">";
+				//if ((count % 4)==0)  clearfix = "<div class=\"clearfix visible-lg-block\">";
+				count++;
+				out.write(clearfix);
+				
+				
 		%>
-	
 		<div id="<%=p.getProductID() %>" class="<%=p.getProductID()%>">
-		<div class="col-sm-2 col-md-2" ">
-			<div class="thumbnail">
-				<img src="<%=p.getImagePath()%>" alt="<%=p.getImageName()%>">
+		 
+			<div class="panel panel-default">
+			<div class="panel-heading text-center">
+				<img src="<%=p.getImagePath()%>" alt="<%=p.getImageName()%>" width="250px">
 				<div class="caption">
 					<h3>
 						<%=p.getProductName()%></h3>
@@ -167,9 +138,8 @@
 					</p>
 				</div>
 			</div>
+			</div>
 		</div>
-		</div>
-
 		<%
 					}
 				} else
@@ -177,7 +147,6 @@
 			} else
 				out.write("No user found");
 		%>
-	</div>
 </div>
 
 

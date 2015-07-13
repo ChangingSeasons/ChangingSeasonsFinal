@@ -15,13 +15,13 @@ public class ProductDAO {
 		Connect();
 		int ID = -1;
 		try{
-			String q0 = "SELECT productID FROM Product";
-			Statement st = cn.createStatement();
+			String q0 = "SELECT productID FROM Product ORDER BY productID DESC LIMIT 1";
+			Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			ResultSet rs = st.executeQuery(q0);
 
-			rs.last(); // Get ID of last Product
-			
-			ID = rs.getInt("productID");
+			//rs.last(); // Get ID of last Product
+			if(rs.next())
+				ID = rs.getInt("productID");
 
 			rs.close();
 			st.close();
@@ -127,18 +127,21 @@ public class ProductDAO {
 		Connect();
 		int ID = -1;
 		try{
-			String q0 = "SELECT productID FROM Product";
-			Statement st = cn.createStatement();
+			String q0 = "SELECT productID FROM Product ORDER BY productID DESC LIMIT 1";
+			Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = st.executeQuery(q0);
 
 			if(rs.next()){
-				rs.last(); // Get ID of last Product
+				//rs.last(); // Get ID of last Product
 				ID = rs.getInt("productID");
 				ID++;
 			}
 			else
 				ID=1; // Empty Table, so start with ID 1
 
+			
+			System.out.println("\nID from GETID After Query+"+ID);
+			
 			rs.close();
 			st.close();
 		}catch(SQLException e){
@@ -146,6 +149,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 		DB_close();
+		System.out.println("ID from GETID in ProductDAO BEFORE RETURN"+ID);
 		return ID;
 	}
 
@@ -154,12 +158,11 @@ public class ProductDAO {
 		Connect();
 		int countRows = 0;
 		try{
-			String q="SELECT * FROM Product WHERE status <> 0";
-
+			String q="SELECT productID FROM Product WHERE status <> 0 ORDER BY productID DESC LIMIT 1";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
 
-			rs.last();
+			//rs.last();
 			countRows = rs.getRow();
 
 			st.close();

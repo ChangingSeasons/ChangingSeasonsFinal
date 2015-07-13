@@ -53,79 +53,6 @@ public class AddProduct extends HttpServlet {
 		String imagepath = "zzz";
 		String shippingCost = request.getParameter("shippingCost");
 		
-		/*** 
-
-		String sizearray[] = request.getParameterValues("size"); // User input
-		String colorarray[] = request.getParameterValues("color"); // User input
-
-		StringBuilder sb = new StringBuilder();
-
-		String [] str = new String[6];
-		for(i=0; i<str.length; i++)
-			str[i] = "false";
-
-		String size = "";
-		if(sizearray.length!=0){
-			for(i=0; i<sizearray.length; i++){
-				if(sizearray[i].equals("XS"))
-					str[0] = "true";
-				if(sizearray[i].equals("S"))
-					str[1] = "true";
-				if(sizearray[i].equals("M"))
-					str[2] = "true";
-				if(sizearray[i].equals("L"))
-					str[3] = "true";
-				if(sizearray[i].equals("XL"))
-					str[4] = "true";
-				if(sizearray[i].equals("XXL"))
-					str[5] = "true";
-			}
-
-			for(i=0; i<str.length-1; i++){
-				sb.append(str[i]);
-				sb.append(" ");
-			}sb.append(str[i]);
-
-			size = sb.toString(); // This goes to Database
-		}
-		else
-			size = "false false false false false";
-
-		sb = new StringBuilder();
-
-		// Re Init for Colors
-		for(i=0; i<str.length; i++)
-			str[i] = "false";
-
-		String color = "";
-		if(colorarray.length!=0){
-			for(i=0; i<colorarray.length; i++){
-				if(colorarray[i].equals("Black"))
-					str[0] = "true";
-				if(colorarray[i].equals("White"))
-					str[1] = "true";
-				if(colorarray[i].equals("Red"))
-					str[2] = "true";
-				if(colorarray[i].equals("Brown"))
-					str[3] = "true";
-				if(colorarray[i].equals("Grey"))
-					str[4] = "true";
-				if(colorarray[i].equals("Blue"))
-					str[5] = "true";
-			}
-
-			for(i=0; i<str.length-1; i++){
-				sb.append(str[i]);
-				sb.append(" ");
-			}sb.append(str[i]);
-
-			color = sb.toString(); // This goes to Database
-		}
-		else
-			color = "false false false false false";
-			
-		***/
-
 		String imageName = request.getParameter("imageName");
 
 		String msg = "", url = "";
@@ -157,18 +84,8 @@ public class AddProduct extends HttpServlet {
 			msg = msg + "Please fill-in Product Shipping-Cost";
 			request.setAttribute("msg", msg);
 		}
-		/**
-		if(color.length()==0){
-			url = "/addProducts.jsp";
-			msg = msg + "Please fill-in Product Color";
-			request.setAttribute("msg", msg);
-		}
-		if(size.length()==0){
-			url = "/addProducts.jsp";
-			msg = msg + "Please fill-in Product Size";
-			request.setAttribute("msg", msg);
-		}
-		**/
+		
+
 		if(imageName.length()==0){
 			url = "/addProducts.jsp";
 			msg = msg + "Please fill-in Product Image name";
@@ -190,10 +107,10 @@ public class AddProduct extends HttpServlet {
 			
 			
 			if(id>0){
-				Product product = ProductDAO.viewProduct(id);
-				List<Product> currentProducts = (List<Product>) se.getAttribute("products");
-				currentProducts.add(product);
-				se.setAttribute("products",currentProducts);
+//				Product product = ProductDAO.viewProduct(id);
+//				List<Product> currentProducts = (List<Product>) se.getAttribute("products");
+//				currentProducts.add(product);
+//				se.setAttribute("products",currentProducts);
 				se.setAttribute("currentProductID", id);
 				url = "/upload.jsp";
 				msg = "Product Added Successfully";

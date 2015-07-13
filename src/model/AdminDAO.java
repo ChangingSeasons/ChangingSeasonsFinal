@@ -51,12 +51,12 @@ public class AdminDAO {
 
 		int countRows = 0;
 		try{
-			String q="SELECT * FROM User WHERE status <> 0";
+			String q="SELECT id FROM User WHERE status <> 0 ORDER BY id DESC LIMIT 1";
 
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(q);
 
-			rs.last();
+			//rs.last();
 			countRows = rs.getRow();
 
 			st.close();
